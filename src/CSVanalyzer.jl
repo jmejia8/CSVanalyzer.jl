@@ -5,13 +5,13 @@ import HypothesisTests: pvalue, SignedRankTest
 
 export statitistic,printSummary,statsToLatex,getComparison,comparisonToLatex
 
-function statitistic(M::Matrix{Float64})
+function statitistic(M::Matrix{Float64}; mapping::Function=identity)
     # rows = funs
     # cols = runs
 
     result = zeros(size(M,1), 5)
     for i = 1:size(M,1)
-        x = M[i,:]
+        x = mapping(M[i,:])
         
         result[i, 1] = minimum(x)
         result[i, 2] = median(x)
@@ -35,7 +35,7 @@ function printSummary(stats::Matrix{Float64})
     end
 end
 
-function statsToLatex(stats::Matrix{Float64})
+function statsToLatex(stats::Matrix{Float64}; mapping::Function=identity)
  
     println("fn & Best &  Median &  Mean &  Worst &  Std. \\\\ \n")
  
@@ -139,9 +139,9 @@ function comparisonToLatex(algorithms::Dict{String, String}, algName::String)
     end
 end
 
-statitistic(fname::String) = statitistic( readcsv(fname) )
-printSummary(fname::String) = printSummary( statitistic(readcsv(fname)) )
-statsToLatex(fname::String) = statsToLatex(statitistic( readcsv(fname) ))
+statitistic(fname::String; mapping::Function=identity) = statitistic( readcsv(fname); mapping=mapping )
+printSummary(fname::String; mapping::Function=identity) = printSummary( statitistic(readcsv(fname)); mapping=mapping )
+statsToLatex(fname::String; mapping::Function=identity) = statsToLatex(statitistic( readcsv(fname); mapping=mapping ))
 printComparison(algorithms::Dict{String, String}, algName::String) = println(getComparison(D))
 
 
