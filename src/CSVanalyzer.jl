@@ -24,7 +24,7 @@ function statitistic(M::Matrix{Float64}; mapping::Function=identity)
 end
 
 
-function printSummary(stats::Matrix{Float64})
+function printSummary(stats::Matrix{Float64}; mapping::Function=identity)
     for i = 1:size(stats,1)        
         @printf("Best = %.4e  Median = %.4e  Mean = %.4e  Worst = %.4e  std = %.4e\n",
                     stats[i, 1],
