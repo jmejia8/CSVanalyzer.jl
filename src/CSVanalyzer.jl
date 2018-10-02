@@ -2,6 +2,11 @@ module CSVanalyzer
 
 import DataFrames: DataFrame
 import HypothesisTests: pvalue, SignedRankTest
+import Printf.@printf
+import Statistics: mean, median, std
+import DelimitedFiles.readdlm
+
+readcsv(fname) = readdlm(fname, ',', '\n')
 
 export statitistic,printSummary,statsToLatex,getComparison,comparisonToLatex
 
