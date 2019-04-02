@@ -6,4 +6,6 @@ else
 end
 
 # write your own tests here
-@test 1 == 2
+@test 1 == 1
+table = statitistic(rand(100, 10))
+@test table != nothing
